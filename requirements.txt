@@ -1,0 +1,6 @@
+﻿numpy
+opencv-python
+ultralytics
+onnx
+onnxruntime
+pycuda
