@@ -1,0 +1,22 @@
+import os
+from git import Repo
+
+# Config
+source_repo = "https://github.com/gaetanozambito/yolo_wildfire.git"
+target_repo = "https://github.com/markl02us/wildfire-ai.git"
+temp_path   = "WildfireMirror"
+
+# Clean old folder
+if os.path.exists(temp_path):
+    import shutil
+    shutil.rmtree(temp_path)
+
+# Clone the repo (mirror)
+repo = Repo.clone_from(source_repo, temp_path, mirror=True)
+
+# Change remote to target
+with repo.git.custom_environment(GIT_TERMINAL_PROMPT='0'):
+    repo.git.remote("set-url", "origin", target_repo)
+
+# Push everything to your repo
+repo.git.push("--mirror")
